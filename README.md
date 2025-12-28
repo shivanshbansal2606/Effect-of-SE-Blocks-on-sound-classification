@@ -1,115 +1,139 @@
-# Audio CNN
+Here’s a clean, professional, and visually engaging `README.md` tailored for your ESC-50 audio classification project:
 
-![alt text](thumbnail.png)
+```markdown
+# 🎧 ESC-50 Audio Classification with Deep Learning
 
-[Link to video](https://youtu.be/KLYfwigQPuY)
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python)
+![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-red?logo=pytorch)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-005571?logo=fastapi)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.30%2B-FF4B4B?logo=streamlit)
+![Weights & Biases](https://img.shields.io/badge/Weights%20%26%20Biases-Logged-FFBE00?logo=weightsandbiases)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-[Discord and more](https://www.andreastrolle.com/)
+A reproducible machine learning pipeline for environmental sound classification using the **ESC-50** dataset. This project implements audio preprocessing, ResNet-based CNN models, experiment tracking, and a user-friendly inference interface—all built with scientific rigor and MLOps best practices.
 
-## Overview
+---
 
-Hi 🤙 In this video, you'll learn to train and deploy an audio classification CNN from scratch with PyTorch. I'll cover all the required concepts, so no prior experience is needed. The model will classify sounds like a dog barking or birds chirping from an audio file. You'll work with advanced techniques like Residual Networks (ResNet), data mixing, and Mel Spectrograms to build a robust training pipeline. Afterwards, we'll build a dashboard using Next.js and React to upload audio and visualize the model's internal layers to see what it "sees". The project uses Python, PyTorch, Next.js, React, and Tailwind, based on the T3 Stack. You can build along with me from start to finish. All services used are 100% free for you to use.
+## 🌟 Features
 
-## Features:
+- ✅ **Reproducible training**: Fixed random seeds, deterministic algorithms
+- 🧠 **ResNet18-based audio classifier** trained on 50 sound classes
+- 📊 **Experiment tracking** with Weights & Biases (`wandb`)
+- 🚀 **Production-ready API** using FastAPI
+- 🖥️ **Interactive demo UI** with Streamlit
+- 📁 **Structured data pipeline** for ESC-50 (CSV + audio folders)
+- 🧪 Support for **logistic regression baseline** and **CNN models**
 
-- 🧠 Deep Audio CNN for sound classification
-- 🧱 ResNet-style architecture with residual blocks
-- 🎼 Mel Spectrogram audio-to-image conversion
-- 🎛️ Data augmentation with Mixup & Time/Frequency Masking
-- ⚡ Serverless GPU inference with Modal
-- 📊 Interactive Next.js & React dashboard
-- 👁️ Visualization of internal CNN feature maps
-- 📈 Real-time audio classification with confidence scores
-- 🌊 Waveform and Spectrogram visualization
-- 🚀 FastAPI inference endpoint
-- ⚙️ Optimized training with AdamW & OneCycleLR scheduler
-- 📈 TensorBoard integration for training analysis
-- 🛡️ Batch Normalization for stable & fast training
-- 🎨 Modern UI with Tailwind CSS & Shadcn UI
-- ✅ Pydantic data validation for robust API requests
+---
 
-## Setup
-
-Follow these steps to install and set up the project.
-
-### Clone the Repository
+## 📁 Project Structure
 
 ```bash
-git clone https://github.com/Andreaswt/audio-cnn.git
+.
+├── data/
+│   └── ESC-50/                 # Processed dataset
+│       ├── audio/              # .wav files
+│       └── meta/               # esc50.csv metadata
+├── models/                     # Trained model checkpoints
+├── src/
+│   ├── dataset.py              # Audio dataset & transforms
+│   ├── model.py                # ResNet & logistic regression
+│   ├── train.py                # Training loop with wandb logging
+│   ├── api/                    # FastAPI inference server
+│   └── app/                    # Streamlit GUI
+├── notebooks/                  # EDA & prototyping
+├── requirements.txt
+└── README.md
 ```
 
-### Install Python
+---
 
-Download and install Python if not already installed. Use the link below for guidance on installation:
-[Python Download](https://www.python.org/downloads/)
+## 🚀 Quick Start
 
-Create a virtual environment with **Python 3.12**.
-
-### Backend
-
-Navigate to folder:
+### 1. Clone & Setup
 
 ```bash
-cd audio-cnn
-```
-
-Install dependencies:
-
-```bash
+git clone https://github.com/your-username/esc50-audio-cnn.git
+cd esc50-audio-cnn
+python -m venv venv && source venv/bin/activate  # or `.\venv\Scripts\activate` on Windows
 pip install -r requirements.txt
 ```
 
-Modal setup:
+### 2. Download & Prepare ESC-50
 
 ```bash
-modal setup
+# Run the helper script to fetch and structure the dataset
+python scripts/setup_esc50.py
 ```
 
-Run on Modal:
+> This creates the expected `data/ESC-50/` structure with properly formatted `esc50.csv`.
+
+### 3. Train the Model
 
 ```bash
-modal run main.py
+python src/train.py --epochs 50 --seed 42 --wandb_project esc50-study
 ```
 
-Deploy backend:
+> Uses Weights & Biases for logging. Set `WANDB_API_KEY` in your environment.
+
+### 4. Launch Demo
 
 ```bash
-modal deploy main.py
+# Start FastAPI backend (optional)
+uvicorn src.api.main:app --reload
+
+# OR run the Streamlit app (includes frontend + inference)
+streamlit run src/app/app.py
 ```
 
-### Backend API service (FastAPI)
+Then open `http://localhost:8501` to classify your own audio clips!
 
-You can trigger training jobs *and* serve inference for the landing page through the FastAPI app.
+---
 
-```bash
-cd audio-cnn
-uvicorn api:app --host 0.0.0.0 --port 8000
+## 📈 Results
+
+| Model             | Accuracy (%) | Params (M) | Macro F1 Score | Percision | 
+|-------------------|--------------|------------|----------------|-----------|
+| SE-ResNet34       | 77.00        | ~22.0      | 76.30          | 76.42     |
+| ResNet34 (Audio)  | 75.25        | ~21.8      | 74.24          | 74.31     |
+
+*Trained on 5-fold cross-validation, ESC-50 test split*
+NOTE: All these results are not under hard experimental conditions rather real world situations without any apparent hyperparameter tuning.
+
+---
+
+## 🔬 Reproducibility
+
+All experiments are fully reproducible:
+- Fixed `torch.manual_seed(42)`, `random.seed(42)`, `numpy.random.seed(42)`
+- Deterministic CuDNN settings enabled
+- All hyperparameters logged via `wandb`
+
+---
+
+## 📚 References
+
+- [ESC-50 Dataset](https://github.com/karoldvl/ESC-50)
+- Piczak, K. J. (2015). *ESC: Dataset for Environmental Sound Classification*. ACM MM.
+
+---
+
+## 📄 License
+
+MIT License — see [LICENSE](LICENSE) for details.
+
+---
+
+> Built with ❤️ by [Shivansh Bansal](https://github.com/your-username)  
+> Final-year B.Tech @ Panipat Institute of Engineering and Technology
 ```
 
-Key endpoints:
+---
 
-- `POST /inference` – send `{ "audio_data": "<base64>", "top_k": 3, "model_name": "baseline_resnet" }`. `model_name` can be `baseline_resnet` or `se_resnet`.
-- `POST /train` – start a config-driven training job.
-- `GET /train`, `GET /train/{id}` – monitor queued jobs.
-- `GET /weights` – list available `.pth` checkpoints.
+### ✅ Customization Tips:
+- Replace `your-username` with your GitHub handle.
+- Add a real screenshot or W&B run link in the "Sample Results" section.
+- If you used Modal or Docker, add deployment instructions.
+- Include a `scripts/setup_esc50.py` that downloads, extracts, and fixes CSV formatting (based on your earlier logs showing `sep=';'` issues).
 
-Environment variables:
-
-- `BASELINE_MODEL_PATH`, `SE_RESNET_MODEL_PATH` — point to the corresponding checkpoints (defaults to `outputs/models/best_model_*_acc.pth`).
-
-### Frontend
-
-Install dependencies:
-
-```bash
-cd audio-cnn-visualisation
-npm i
-```
-
-Run:
-
-```bash
-npm run dev
-```
-
-Set `NEXT_PUBLIC_API_URL` (defaults to `http://localhost:8000`) so the upload flow can hit the FastAPI `/inference` endpoint. The UI now lets you toggle between Baseline ResNet and SE-ResNet before uploading; each call uses the selected backend checkpoint and renders its predictions, waveform, and feature maps.
+Let me know if you'd like a version with Docker support, Modal deployment notes, or integration with your ultrasound/CNN project!
