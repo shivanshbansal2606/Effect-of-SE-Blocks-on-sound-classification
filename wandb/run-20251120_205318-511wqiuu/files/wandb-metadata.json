@@ -1,0 +1,21 @@
+{
+  "os": "Windows-11-10.0.26200-SP0",
+  "python": "CPython 3.12.4",
+  "startedAt": "2025-11-20T15:23:18.136752Z",
+  "args": [
+    "--config",
+    "configs/se_resnet.yaml"
+  ],
+  "program": "D:\\KNOWLEDGE\\Aminor\\audio-cnn\\main.py",
+  "codePath": "main.py",
+  "codePathLocal": "main.py",
+  "git": {
+    "remote": "https://github.com/Andreaswt/audio-cnn",
+    "commit": "64a465a0284547cbbae58c08bb57bbd0f2e0a38f"
+  },
+  "email": "shivanshbansal899@gmail.com",
+  "root": "D:\\KNOWLEDGE\\Aminor\\audio-cnn",
+  "host": "POWERKICK",
+  "executable": "C:\\Program Files\\Python312\\python.exe",
+  "writerId": "edp309dmelo7lgijpx26amcj0ssontne"
+}

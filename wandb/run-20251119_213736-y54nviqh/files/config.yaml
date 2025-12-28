@@ -1,0 +1,66 @@
+_wandb:
+    value:
+        cli_version: 0.23.0
+        e:
+            j3ivo3b8txs0df2a1pspwh9zsd7h67v2:
+                args:
+                    - --config
+                    - configs/baseline.yaml
+                codePath: main.py
+                codePathLocal: main.py
+                email: shivanshbansal899@gmail.com
+                executable: D:\KNOWLEDGE\Aminor\.venv\Scripts\python.exe
+                git:
+                    commit: 64a465a0284547cbbae58c08bb57bbd0f2e0a38f
+                    remote: https://github.com/Andreaswt/audio-cnn
+                host: POWERKICK
+                os: Windows-11-10.0.26200-SP0
+                program: D:\KNOWLEDGE\Aminor\audio-cnn\main.py
+                python: CPython 3.12.4
+                root: D:\KNOWLEDGE\Aminor\audio-cnn
+                startedAt: "2025-11-19T16:07:36.792763Z"
+                writerId: j3ivo3b8txs0df2a1pspwh9zsd7h67v2
+        m: []
+        python_version: 3.12.4
+        t:
+            "1":
+                - 1
+                - 5
+                - 53
+            "2":
+                - 1
+                - 5
+                - 53
+            "3":
+                - 16
+            "4": 3.12.4
+            "5": 0.23.0
+            "8":
+                - 3
+            "12": 0.23.0
+            "13": windows-amd64
+logging:
+    value:
+        entity: null
+        log_dir: ./outputs/runs
+        project_name: audio-cnn-research
+model:
+    value:
+        name: baseline_resnet
+        num_classes: 50
+paths:
+    value:
+        figures_dir: ./outputs/figures
+        model_save_dir: ./outputs/models
+        results_dir: ./outputs/results
+training:
+    value:
+        epochs: 100
+        freq_mask_param: 30
+        lr: 0.001
+        mixup_alpha: 0.2
+        optimizer: adamw
+        scheduler: onecycle
+        seed: 42
+        time_mask_param: 40
+        weight_decay: 0.01

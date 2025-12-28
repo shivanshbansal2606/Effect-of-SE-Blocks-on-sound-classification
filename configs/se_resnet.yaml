@@ -1,0 +1,38 @@
+# configs/se_resnet.yaml
+# Inherits most settings from baseline, just changes the model name/type
+model:
+  name: "se_resnet"
+  num_classes: 50 # Example number of classes, adjust as needed
+  reduction_ratio: 32 # Reduction ratio for SE block
+
+data:
+  dataset_name: "ESC-50" # Or "UrbanSound8K", etc.
+  data_path: "./data/ESC-50/" # Path to your dataset folder
+  batch_size: 32
+  num_workers: 4
+  sample_rate: 22050
+  n_mels: 128
+  n_fft: 2048
+  hop_length: 512
+  duration: 5
+
+training:
+  epochs: 100
+  lr: 0.001
+  weight_decay: 0.01
+  optimizer: "adamw"
+  scheduler: "onecycle"
+  seed: 42
+  mixup_alpha: 0.2
+  freq_mask_param: 30
+  time_mask_param: 40
+
+logging:
+  log_dir: "./outputs/runs"
+  project_name: "audio-cnn-research"
+  entity: null
+
+paths:
+  model_save_dir: "./outputs/models"
+  figures_dir: "./outputs/figures"
+  results_dir: "./outputs/results"

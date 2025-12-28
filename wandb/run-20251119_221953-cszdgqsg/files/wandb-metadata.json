@@ -1,0 +1,32 @@
+{
+  "os": "Windows-11-10.0.26200-SP0",
+  "python": "CPython 3.12.4",
+  "startedAt": "2025-11-19T16:49:53.020551Z",
+  "args": [
+    "--config",
+    "configs/baseline.yaml"
+  ],
+  "program": "D:\\KNOWLEDGE\\Aminor\\audio-cnn\\main.py",
+  "codePath": "main.py",
+  "codePathLocal": "main.py",
+  "git": {
+    "remote": "https://github.com/Andreaswt/audio-cnn",
+    "commit": "64a465a0284547cbbae58c08bb57bbd0f2e0a38f"
+  },
+  "email": "shivanshbansal899@gmail.com",
+  "root": "D:\\KNOWLEDGE\\Aminor\\audio-cnn",
+  "host": "POWERKICK",
+  "executable": "D:\\KNOWLEDGE\\Aminor\\.venv\\Scripts\\python.exe",
+  "cpu_count": 6,
+  "cpu_count_logical": 12,
+  "disk": {
+    "/": {
+      "total": "322121494528",
+      "used": "28795170816"
+    }
+  },
+  "memory": {
+    "total": "16537804800"
+  },
+  "writerId": "qb70393jxtt5vws689v69ff9ts0kstpg"
+}

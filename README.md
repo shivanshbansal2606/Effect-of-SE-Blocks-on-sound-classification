@@ -77,6 +77,26 @@ Deploy backend:
 modal deploy main.py
 ```
 
+### Backend API service (FastAPI)
+
+You can trigger training jobs *and* serve inference for the landing page through the FastAPI app.
+
+```bash
+cd audio-cnn
+uvicorn api:app --host 0.0.0.0 --port 8000
+```
+
+Key endpoints:
+
+- `POST /inference` – send `{ "audio_data": "<base64>", "top_k": 3, "model_name": "baseline_resnet" }`. `model_name` can be `baseline_resnet` or `se_resnet`.
+- `POST /train` – start a config-driven training job.
+- `GET /train`, `GET /train/{id}` – monitor queued jobs.
+- `GET /weights` – list available `.pth` checkpoints.
+
+Environment variables:
+
+- `BASELINE_MODEL_PATH`, `SE_RESNET_MODEL_PATH` — point to the corresponding checkpoints (defaults to `outputs/models/best_model_*_acc.pth`).
+
 ### Frontend
 
 Install dependencies:
@@ -91,3 +111,5 @@ Run:
 ```bash
 npm run dev
 ```
+
+Set `NEXT_PUBLIC_API_URL` (defaults to `http://localhost:8000`) so the upload flow can hit the FastAPI `/inference` endpoint. The UI now lets you toggle between Baseline ResNet and SE-ResNet before uploading; each call uses the selected backend checkpoint and renders its predictions, waveform, and feature maps.

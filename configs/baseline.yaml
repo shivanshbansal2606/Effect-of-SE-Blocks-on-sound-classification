@@ -1,0 +1,40 @@
+# configs/baseline.yaml
+model:
+  name: "baseline_resnet" # Identifier for the model type
+  num_classes: 50 # Example number of classes, adjust as needed (e.g., ESC-50 has 50)
+  # Add other model-specific parameters here if needed
+
+data: # <-- This line must be at the top level, same indentation as model, training, etc.
+  dataset_name: "ESC-50" # Or "UrbanSound8K", etc.
+  data_path: "./data/ESC-50/" # Path to your dataset folder
+  batch_size: 32
+  num_workers: 4 # Number of processes for data loading
+  sample_rate: 22050 # Audio sample rate for loading
+  n_mels: 128 # Number of mel filterbanks for spectrogram
+  n_fft: 2048 # FFT window size
+  hop_length: 512 # Hop length for STFT
+  duration: 5 # Duration of audio clips to use (in seconds)
+
+training:
+  epochs: 100
+  lr: 0.001
+  weight_decay: 0.01
+  optimizer: "adamw" # Or "adam", "sgd"
+  scheduler: "onecycle" # Or "step", "cosine"
+  seed: 42 # Crucial for reproducibility
+  mixup_alpha: 0.2 # Alpha parameter for Mixup augmentation
+  freq_mask_param: 30 # Parameter for frequency masking
+  time_mask_param: 40 # Parameter for time masking
+  # Add other training parameters here
+
+logging:
+  log_dir: "./outputs/runs" # Directory for TensorBoard logs
+  project_name: "audio-cnn-research" # W&B project name
+  entity: null # W&B entity (username or team name), can be null for default user
+
+paths:
+  model_save_dir: "./outputs/models" # Directory to save model checkpoints
+  figures_dir: "./outputs/figures" # Directory to save plots
+  results_dir: "./outputs/results" # Directory to save evaluation results
+
+# --- Add other relevant parameters here ---

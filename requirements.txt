@@ -1,10 +1,22 @@
-pandas
-torchaudio
+# Existing packages (as per original repo)
 torch
-tqdm
-numpy
-tensorboard
+torchvision
+torchaudio
+torchcodec
 fastapi
-librosa
+uvicorn
 pydantic
-soundfile
+modal
+tensorboard
+numpy
+librosa
+tqdm
+# --- New packages for research enhancement ---
+wandb
+omegaconf
+torchcam
+scikit-learn
+matplotlib
+seaborn
+pandas
+# --- Add any other packages you might need later ---

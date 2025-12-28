@@ -31,11 +31,20 @@ interface WaveformData {
 }
 
 interface ApiResponse {
+  model_name: string;
   predictions: Prediction[];
   visualization: VisualizationData;
   input_spectrogram: LayerData;
   waveform: WaveformData;
 }
+
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+
+const MODEL_OPTIONS = [
+  { value: "baseline_resnet", label: "Baseline ResNet" },
+  { value: "se_resnet", label: "SE-ResNet" },
+];
 
 const ESC50_EMOJI_MAP: Record<string, string> = {
   dog: "🐕",
@@ -118,6 +127,9 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [fileName, setFileName] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [modelName, setModelName] = useState<string>(
+    MODEL_OPTIONS[0]?.value ?? "baseline_resnet",
+  );
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -142,10 +154,13 @@ export default function HomePage() {
           ),
         );
 
-        const response = await fetch("inference_url_here", {
+        const response = await fetch(`${API_BASE_URL}/inference`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ audio_data: base64String }),
+          body: JSON.stringify({
+            audio_data: base64String,
+            model_name: modelName,
+          }),
         });
 
         if (!response.ok) {
@@ -183,7 +198,23 @@ export default function HomePage() {
             Upload a WAV file to see the model's predictions and feauture maps
           </p>
 
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-wrap justify-center gap-3">
+              {MODEL_OPTIONS.map((model) => (
+                <button
+                  key={model.value}
+                  disabled={isLoading}
+                  onClick={() => setModelName(model.value)}
+                  className={`rounded-full border px-4 py-2 text-sm ${
+                    modelName === model.value
+                      ? "border-stone-900 bg-stone-900 text-white"
+                      : "border-stone-300 text-stone-700"
+                  }`}
+                >
+                  {model.label}
+                </button>
+              ))}
+            </div>
             <div className="relative inline-block">
               <input
                 type="file"
@@ -227,7 +258,8 @@ export default function HomePage() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-stone-900">
-                  Top Predictions
+                  Top Predictions (
+                  {vizData.model_name.replaceAll("_", " ").toUpperCase()})
                 </CardTitle>
               </CardHeader>
               <CardContent>
