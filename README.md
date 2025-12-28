@@ -125,16 +125,5 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 ---
 
-> Built with ❤️ by [Shivansh Bansal](https://github.com/your-username)  
-> Final-year B.Tech @ Panipat Institute of Engineering and Technology
-```
-
----
-
-### ✅ Customization Tips:
-- Replace `your-username` with your GitHub handle.
-- Add a real screenshot or W&B run link in the "Sample Results" section.
-- If you used Modal or Docker, add deployment instructions.
-- Include a `scripts/setup_esc50.py` that downloads, extracts, and fixes CSV formatting (based on your earlier logs showing `sep=';'` issues).
-
-Let me know if you'd like a version with Docker support, Modal deployment notes, or integration with your ultrasound/CNN project!
+> Built by [Shivansh Bansal] 
+> Final-year B.Tech 
